@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Fennekin Folios</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -62,7 +62,7 @@
     <!-- Sidebar -->
     <aside class="flex flex-col w-64 sidebar">
         <div class="p-6 border-[#FCE77C] border-b text-center">
-            <img src="/assets/fenecircle_logo.png" class="mx-auto mb-3 w-16 h-16">
+            <img src="/assets/coircircle_logo.png" class="mx-auto mb-3 w-16 h-16">
             <h2 class="text-white text-2xl header-title">Admin Panel</h2>
         </div>
 

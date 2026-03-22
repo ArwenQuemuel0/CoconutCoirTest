@@ -12,7 +12,7 @@ $currentPath = $uri->getPath();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Management | Fennekin Folios Admin</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -107,7 +107,7 @@ $currentPath = $uri->getPath();
 
                                     <td class="px-6 py-4">
                                         <?php if (!empty($book->image)): ?>
-                                            <img src="<?= esc($book->image) ?>" class="w-14 h-20 object-cover rounded shadow">
+                                            <img src="<?= esc($book->image) ?>" class="shadow rounded w-14 h-20 object-cover">
                                         <?php else: ?>
                                             <span class="text-gray-500 italic">No image</span>
                                         <?php endif; ?>
@@ -154,7 +154,7 @@ $currentPath = $uri->getPath();
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="7" class="text-center py-6 text-gray-600">
+                                <td colspan="7" class="py-6 text-gray-600 text-center">
                                     No stock items found.
                                 </td>
                             </tr>
@@ -171,7 +171,7 @@ $currentPath = $uri->getPath();
     <!-- Sidebar -->
     <aside class="flex flex-col w-64 sidebar">
         <div class="p-6 border-[#FCE77C] border-b text-center">
-            <img src="/assets/fenecircle_logo.png" alt="Fennekin Folios Logo" class="mx-auto mb-3 w-16 h-16">
+            <img src="/assets/coircircle_logo.png" alt="EcoCoir Creations Logo" class="mx-auto mb-3 w-16 h-16">
             <h2 class="text-white text-2xl header-title">Admin Panel</h2>
         </div>
 
@@ -193,77 +193,77 @@ $currentPath = $uri->getPath();
     </aside>
 
     <!-- ADD BOOK MODAL -->
-    <dialog id="addBookModal" class="p-0 rounded-2xl w-[95%] max-w-lg backdrop:bg-black/60">
+    <dialog id="addBookModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[95%] max-w-lg">
         <form method="post" action="/admin/stocks/create"
-            class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl space-y-4">
+            class="space-y-4 bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
 
             <?= csrf_field() ?>
 
-            <h3 class="text-3xl font-bold text-[#E15A37] header-title mb-4">Add New Book</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-3xl header-title">Add New Book</h3>
 
-            <div class="grid grid-cols-1 gap-3">
-                <input type="text" name="name" placeholder="Book Title" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="text" name="image" placeholder="Image URL" class="border border-[#FCE77C] px-3 py-2 rounded-lg">
-                <textarea name="description" placeholder="Book Description" rows="4" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required></textarea>
-                <input type="number" step="0.01" name="price" placeholder="Price" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="number" name="quantity" placeholder="Stock Quantity" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
+            <div class="gap-3 grid grid-cols-1">
+                <input type="text" name="name" placeholder="Book Title" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="text" name="image" placeholder="Image URL" class="px-3 py-2 border border-[#FCE77C] rounded-lg">
+                <textarea name="description" placeholder="Book Description" rows="4" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required></textarea>
+                <input type="number" step="0.01" name="price" placeholder="Price" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="number" name="quantity" placeholder="Stock Quantity" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" onclick="closeAddBook()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>
-                <button type="submit" class="px-6 py-2 bg-[#E15A37] text-white rounded-lg hover:bg-[#ED865A]">Add Book</button>
+                <button type="button" onclick="closeAddBook()" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg text-gray-700">Cancel</button>
+                <button type="submit" class="bg-[#E15A37] hover:bg-[#ED865A] px-6 py-2 rounded-lg text-white">Add Book</button>
             </div>
         </form>
     </dialog>
 
     <!-- EDIT BOOK MODAL -->
-    <dialog id="editBookModal" class="p-0 rounded-2xl w-[95%] max-w-lg backdrop:bg-black/60">
+    <dialog id="editBookModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[95%] max-w-lg">
         <form method="post" id="editBookForm"
-            class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl space-y-4">
+            class="space-y-4 bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
 
             <?= csrf_field() ?>
 
-            <h3 class="text-3xl font-bold text-[#E15A37] header-title mb-4">✏️ Edit Book</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-3xl header-title">✏️ Edit Book</h3>
 
             <input type="hidden" name="id" id="edit_id">
 
-            <div class="grid grid-cols-1 gap-3">
-                <input type="text" id="edit_name" name="name" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="text" id="edit_image" name="image" class="border border-[#FCE77C] px-3 py-2 rounded-lg">
-                <textarea id="edit_description" name="description" rows="4" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required></textarea>
-                <input type="number" step="0.01" id="edit_price" name="price" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="number" id="edit_quantity" name="quantity" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
+            <div class="gap-3 grid grid-cols-1">
+                <input type="text" id="edit_name" name="name" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="text" id="edit_image" name="image" class="px-3 py-2 border border-[#FCE77C] rounded-lg">
+                <textarea id="edit_description" name="description" rows="4" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required></textarea>
+                <input type="number" step="0.01" id="edit_price" name="price" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="number" id="edit_quantity" name="quantity" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" onclick="closeEditBook()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancel</button>
-                <button type="submit" class="px-6 py-2 bg-[#E15A37] text-white rounded-lg hover:bg-[#ED865A]">Save Changes</button>
+                <button type="button" onclick="closeEditBook()" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg text-gray-700">Cancel</button>
+                <button type="submit" class="bg-[#E15A37] hover:bg-[#ED865A] px-6 py-2 rounded-lg text-white">Save Changes</button>
             </div>
         </form>
     </dialog>
 
     <!-- DELETE BOOK MODAL -->
-    <dialog id="deleteBookModal" class="p-0 rounded-2xl w-[90%] max-w-md backdrop:bg-black/60">
+    <dialog id="deleteBookModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[90%] max-w-md">
 
         <form method="post" id="deleteBookForm"
-            class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl">
+            class="bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
 
             <?= csrf_field() ?>
 
-            <h3 class="text-2xl font-bold text-[#E15A37] header-title mb-4">⚠️ Delete Book</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-2xl header-title">⚠️ Delete Book</h3>
 
-            <p class="text-gray-700 mb-6">
+            <p class="mb-6 text-gray-700">
                 Are you sure you want to delete
                 <strong id="delete_book_name"></strong>?
                 This action cannot be undone.
             </p>
 
             <div class="flex justify-end gap-3">
-                <button type="button" onclick="closeDeleteBook()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg">
+                <button type="button" onclick="closeDeleteBook()" class="bg-gray-300 px-4 py-2 rounded-lg text-gray-700">
                     Cancel
                 </button>
 
-                <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg text-white">
                     Delete
                 </button>
             </div>

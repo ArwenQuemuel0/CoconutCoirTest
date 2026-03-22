@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Accounts | Achlys' Bookstore Admin</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -150,15 +150,15 @@
     <!-- SIDEBAR -->
     <aside class="flex flex-col w-64 sidebar">
         <div class="p-6 border-[#FCE77C] border-b text-center">
-            <img src="/assets/fenecircle_logo.png" class="w-16 mx-auto mb-3">
+            <img src="/assets/coircircle_logo.png" class="mx-auto mb-3 w-16">
             <h2 class="text-white text-2xl header-title">Admin Panel</h2>
         </div>
 
         <nav class="flex-1 space-y-2 p-4">
-            <a href="/admin/adminDashboard" class="sidebar-link block px-4 py-3 rounded-lg">📊 Dashboard</a>
-            <a href="/admin/stockPage" class="sidebar-link block px-4 py-3 rounded-lg">📚 Stocks Page</a>
-            <a href="/admin/accountsPage" class="sidebar-link block bg-[#ED865A]/30 px-4 py-3 rounded-lg">👤 Accounts Page</a>
-            <a href="/admin/requestPage" class="sidebar-link block px-4 py-3 rounded-lg">📝 Requests Page</a>
+            <a href="/admin/adminDashboard" class="block px-4 py-3 rounded-lg sidebar-link">📊 Dashboard</a>
+            <a href="/admin/stockPage" class="block px-4 py-3 rounded-lg sidebar-link">📚 Stocks Page</a>
+            <a href="/admin/accountsPage" class="block bg-[#ED865A]/30 px-4 py-3 rounded-lg sidebar-link">👤 Accounts Page</a>
+            <a href="/admin/requestPage" class="block px-4 py-3 rounded-lg sidebar-link">📝 Requests Page</a>
         </nav>
 
         <!-- LOGOUT BUTTON EXACTLY LIKE DASHBOARD -->
@@ -175,22 +175,22 @@
 
 
     <!-- ADD USER MODAL -->
-    <dialog id="addAccountModal" class="p-0 rounded-2xl w-[95%] max-w-lg backdrop:bg-black/60">
+    <dialog id="addAccountModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[95%] max-w-lg">
         <form method="post" action="/admin/accounts/create"
-            class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl space-y-4">
+            class="space-y-4 bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
             <?= csrf_field() ?>
 
-            <h3 class="text-3xl font-bold text-[#E15A37] header-title mb-4">Add New Account</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-3xl header-title">Add New Account</h3>
 
-            <div class="grid grid-cols-1 gap-3">
-                <input type="text" name="first_name" placeholder="First Name" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="text" name="middle_name" placeholder="Middle Name" class="border border-[#FCE77C] px-3 py-2 rounded-lg">
-                <input type="text" name="last_name" placeholder="Last Name" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="email" name="email" placeholder="Email" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="password" name="password" placeholder="Password" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="password" name="password_confirm" placeholder="Confirm Password" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
+            <div class="gap-3 grid grid-cols-1">
+                <input type="text" name="first_name" placeholder="First Name" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="text" name="middle_name" placeholder="Middle Name" class="px-3 py-2 border border-[#FCE77C] rounded-lg">
+                <input type="text" name="last_name" placeholder="Last Name" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="email" name="email" placeholder="Email" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="password" name="password" placeholder="Password" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="password" name="password_confirm" placeholder="Confirm Password" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
 
-                <select name="type" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
+                <select name="type" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
                     <option value="client">Client</option>
                     <option value="admin">Admin</option>
                 </select>
@@ -199,10 +199,10 @@
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                <button type="button" onclick="closeAddModal()" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg text-gray-700">
                     Cancel
                 </button>
-                <button type="submit" class="px-6 py-2 bg-[#E15A37] text-white rounded-lg hover:bg-[#ED865A]">
+                <button type="submit" class="bg-[#E15A37] hover:bg-[#ED865A] px-6 py-2 rounded-lg text-white">
                     Create
                 </button>
             </div>
@@ -211,28 +211,28 @@
 
 
     <!-- EDIT USER MODAL -->
-    <dialog id="editUserModal" class="p-0 rounded-2xl w-[95%] max-w-lg backdrop:bg-black/60">
+    <dialog id="editUserModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[95%] max-w-lg">
         <form method="post" id="editUserForm"
-            class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl space-y-4">
+            class="space-y-4 bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
             <?= csrf_field() ?>
 
-            <h3 class="text-3xl font-bold text-[#E15A37] header-title mb-4">✏️ Edit User</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-3xl header-title">✏️ Edit User</h3>
 
             <input type="hidden" name="id" id="edit_id">
 
-            <div class="grid grid-cols-1 gap-3">
-                <input type="text" id="edit_first_name" name="first_name" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="text" id="edit_middle_name" name="middle_name" class="border border-[#FCE77C] px-3 py-2 rounded-lg">
-                <input type="text" id="edit_last_name" name="last_name" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="email" id="edit_email" name="email" class="border border-[#FCE77C] px-3 py-2 rounded-lg" required>
-                <input type="password" id="edit_password" name="password" placeholder="New Password (optional)" class="border border-[#FCE77C] px-3 py-2 rounded-lg">
+            <div class="gap-3 grid grid-cols-1">
+                <input type="text" id="edit_first_name" name="first_name" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="text" id="edit_middle_name" name="middle_name" class="px-3 py-2 border border-[#FCE77C] rounded-lg">
+                <input type="text" id="edit_last_name" name="last_name" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="email" id="edit_email" name="email" class="px-3 py-2 border border-[#FCE77C] rounded-lg" required>
+                <input type="password" id="edit_password" name="password" placeholder="New Password (optional)" class="px-3 py-2 border border-[#FCE77C] rounded-lg">
             </div>
 
             <div class="flex justify-end gap-3 pt-4">
-                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">
+                <button type="button" onclick="closeEditModal()" class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg text-gray-700">
                     Cancel
                 </button>
-                <button type="submit" class="px-6 py-2 bg-[#E15A37] text-white rounded-lg hover:bg-[#ED865A]">
+                <button type="submit" class="bg-[#E15A37] hover:bg-[#ED865A] px-6 py-2 rounded-lg text-white">
                     Save Changes
                 </button>
             </div>
@@ -240,25 +240,25 @@
     </dialog>
 
     <!-- DELETE CONFIRM MODAL -->
-    <dialog id="deleteUserModal" class="p-0 rounded-2xl w-[90%] max-w-md backdrop:bg-black/60">
+    <dialog id="deleteUserModal" class="backdrop:bg-black/60 p-0 rounded-2xl w-[90%] max-w-md">
 
-        <form method="post" id="deleteUserForm" class="bg-white p-6 rounded-2xl border border-[#FCE77C] shadow-xl">
+        <form method="post" id="deleteUserForm" class="bg-white shadow-xl p-6 border border-[#FCE77C] rounded-2xl">
             <?= csrf_field() ?>
 
-            <h3 class="text-2xl font-bold text-[#E15A37] header-title mb-4">⚠️ Delete User</h3>
+            <h3 class="mb-4 font-bold text-[#E15A37] text-2xl header-title">⚠️ Delete User</h3>
 
-            <p class="text-gray-700 mb-6">
+            <p class="mb-6 text-gray-700">
                 Are you sure you want to delete
                 <strong id="delete_user_name"></strong>?
                 This action cannot be undone.
             </p>
 
             <div class="flex justify-end gap-3">
-                <button type="button" onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg">
+                <button type="button" onclick="closeDeleteModal()" class="bg-gray-300 px-4 py-2 rounded-lg text-gray-700">
                     Cancel
                 </button>
 
-                <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                <button type="submit" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg text-white">
                     Delete
                 </button>
             </div>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Achlys' Bookstore – Sign Up</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <title>EcoCoir Creations – Sign Up</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,22 +39,22 @@
         }
 
         /* NEW BACKGROUND IMAGE */
-        .bookstore-gradient {
+        .coir-store-gradient {
             position: relative;
-            background: url('/assets/background.png') no-repeat center center;
+            background: url('/assets/coco_background.png') no-repeat center center;
             background-size: cover;
         }
 
         /* ORANGE OVERLAY */
-        .bookstore-gradient::before {
+        .coir-store-gradient::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(44, 41, 41, 0.85), rgba(225, 90, 55, 0.55));
+            background: linear-gradient(rgba(104, 96, 77, 0.4), rgba(139, 115, 85, 0.5));
             z-index: 0;
         }
 
-        .bookstore-gradient>div {
+        .coir-store-gradient>div {
             position: relative;
             z-index: 1;
         }
@@ -73,11 +73,11 @@
         <main class="flex md:flex-row flex-col flex-grow">
 
             <!-- LEFT SECTION (FIXED, NON-SCROLLABLE) -->
-            <div class="flex flex-col justify-center items-center p-12 md:w-2/3 h-screen overflow-hidden text-white bookstore-gradient">
+            <div class="flex flex-col justify-center items-center p-12 md:w-2/3 h-screen overflow-hidden text-white coir-store-gradient">
                 <div class="space-y-6 max-w-md text-center">
-                    <h2 class="font-bold text-4xl md:text-5xl header-title">Join the Fennekin Community</h2>
+                    <h2 class="font-bold text-4xl md:text-5xl header-title">Join the EcoCoir Community</h2>
                     <p class="text-white/90 text-lg">
-                        Unlock a world of stories, connect with fellow readers, and keep track of your literary adventures.
+                        Join a community of eco-conscious makers, craft lovers, and sustainable living advocates.
                     </p>
                 </div>
             </div>
@@ -89,9 +89,9 @@
 
                     <!-- Header -->
                     <div class="mb-8 text-center">
-                        <img src="/assets/fennekin.png" alt="Achlys Circle Logo" class="mx-auto mb-4 w-16 h-16">
-                        <h2 class="font-bold text-[#514d4d] text-3xl header-title">Create Account</h2>
-                        <p class="mt-2 text-[#514d4d]">Discover stories that speak to you</p>
+                        <img src="/assets/eco_colored_logo.png" alt="EcoCoir Creations Logo" class="mx-auto mb-4 w-16 h-16">
+                        <h2 class="font-bold text-[#68604D] text-3xl header-title">Create Account</h2>
+                        <p class="mt-2 text-[#68604D]">Discover sustainable products that fit your lifestyle</p>
                     </div>
 
                     <!-- SIGNUP FORM -->
@@ -100,11 +100,11 @@
 
                         <!-- FIRST NAME -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">First Name</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">First Name</label>
                             <input type="text" name="first_name" required
                                 value="<?= esc($old['first_name'] ?? '') ?>"
                                 placeholder="Enter your first name"
-                                class="px-4 py-4 border-2 <?= isset($errors['first_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="px-4 py-4 border-2 <?= isset($errors['first_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
                             <?php if (!empty($errors['first_name'])): ?>
                                 <p class="mt-2 text-red-600 text-sm"><?= esc($errors['first_name']) ?></p>
                             <?php endif; ?>
@@ -112,11 +112,11 @@
 
                         <!-- MIDDLE NAME -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Middle Name (Optional)</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Middle Name (Optional)</label>
                             <input type="text" name="middle_name"
                                 value="<?= esc($old['middle_name'] ?? '') ?>"
                                 placeholder="Enter your middle name"
-                                class="px-4 py-4 border-2 <?= isset($errors['middle_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="px-4 py-4 border-2 <?= isset($errors['middle_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
                             <?php if (!empty($errors['middle_name'])): ?>
                                 <p class="mt-2 text-red-600 text-sm"><?= esc($errors['middle_name']) ?></p>
                             <?php endif; ?>
@@ -124,11 +124,11 @@
 
                         <!-- LAST NAME -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Last Name</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Last Name</label>
                             <input type="text" name="last_name" required
                                 value="<?= esc($old['last_name'] ?? '') ?>"
                                 placeholder="Enter your last name"
-                                class="px-4 py-4 border-2 <?= isset($errors['last_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="px-4 py-4 border-2 <?= isset($errors['last_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
                             <?php if (!empty($errors['last_name'])): ?>
                                 <p class="mt-2 text-red-600 text-sm"><?= esc($errors['last_name']) ?></p>
                             <?php endif; ?>
@@ -136,9 +136,9 @@
 
                         <!-- PROFILE PICTURE -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Profile picture</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Profile picture</label>
                             <input type="file" name="avatar" accept="image/*" required
-                                class="w-full text-gray-900 border-2 <?= isset($errors['avatar']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl p-3 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="w-full text-gray-900 border-2 <?= isset($errors['avatar']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl p-3 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
                             <?php if (!empty($errors['avatar'])): ?>
                                 <p class="mt-2 text-red-600 text-sm"><?= esc($errors['avatar']) ?></p>
                             <?php endif; ?>
@@ -146,11 +146,11 @@
 
                         <!-- EMAIL -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Email Address</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Email Address</label>
                             <input type="email" name="email" required
                                 value="<?= esc($old['email'] ?? '') ?>"
                                 placeholder="Enter your email"
-                                class="px-4 py-4 border-2 <?= isset($errors['email']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="px-4 py-4 border-2 <?= isset($errors['email']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
                             <?php if (!empty($errors['email'])): ?>
                                 <p class="mt-2 text-red-600 text-sm"><?= esc($errors['email']) ?></p>
                             <?php endif; ?>
@@ -158,12 +158,12 @@
 
                         <!-- PASSWORD -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Password</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Password</label>
 
                             <div class="relative">
                                 <input type="password" id="password" name="password" required
                                     placeholder="Create a password"
-                                    class="px-4 py-4 border-2 <?= isset($errors['password']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                    class="px-4 py-4 border-2 <?= isset($errors['password']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
 
                                 <button type="button" aria-label="Toggle password visibility"
                                     id="togglePasswordBtn"
@@ -188,7 +188,7 @@
                             <?php endif; ?>
 
                             <!-- Password Requirements -->
-                            <div id="password-requirements" class="space-y-1 mt-2 text-[#514d4d] text-sm">
+                            <div id="password-requirements" class="space-y-1 mt-2 text-[#68604D] text-sm">
                                 <p id="req-length" class="text-red-500">• At least 8 characters</p>
                                 <p id="req-number" class="text-red-500">• Contains a number</p>
                                 <p id="req-upper" class="text-red-500">• Contains an uppercase letter</p>
@@ -201,18 +201,18 @@
                                 <div class="bg-gray-200 rounded-full w-full h-2 overflow-hidden">
                                     <div id="strengthBar" class="bg-red-500 w-0 h-full transition-all"></div>
                                 </div>
-                                <p id="strengthText" class="mt-1 text-[#514d4d] text-xs">Strength: —</p>
+                                <p id="strengthText" class="mt-1 text-[#68604D] text-xs">Strength: —</p>
                             </div>
                         </div>
 
                         <!-- CONFIRM PASSWORD -->
                         <div>
-                            <label class="block mb-2 font-semibold text-[#514d4d]">Confirm Password</label>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Confirm Password</label>
 
                             <div class="relative">
                                 <input type="password" id="password_confirm" name="password_confirm" required
                                     placeholder="Confirm your password"
-                                    class="px-4 py-4 border-2 <?= isset($errors['password_confirm']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4">
+                                    class="px-4 py-4 border-2 <?= isset($errors['password_confirm']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
 
                                 <button type="button" id="toggleConfirmBtn" class="top-4 right-4 absolute p-1">
                                     <svg id="icon-eye2" xmlns="http://www.w3.org/2000/svg"
@@ -239,16 +239,16 @@
 
                         <!-- SUBMIT BUTTON -->
                         <button type="submit"
-                            class="bg-[#e15a37] hover:bg-[#ed865a] py-4 rounded-full w-full font-semibold text-white text-lg">
+                            class="bg-[#D5C7AD] hover:bg-[#68604D] py-4 rounded-full w-full font-semibold text-[#68604D] hover:text-white text-lg transition">
                             Create Account
                         </button>
                     </form>
 
                     <!-- LINKS -->
                     <div class="space-y-2 mt-6 text-center">
-                        <p class="text-[#514d4d]">
+                        <p class="text-[#68604D]">
                             Already have an account?
-                            <a href="/loginPage" class="font-semibold text-[#e15a37] hover:text-[#ed865a]">
+                            <a href="/loginPage" class="font-semibold text-[#68604D] hover:text-[#D5C7AD] transition">
                                 Log in here
                             </a>
                         </p>

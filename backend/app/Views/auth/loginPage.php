@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fennekin Folios – Login</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <title>EcoCoir Creations – Login</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,22 +44,22 @@
         }
 
         /* NEW BACKGROUND IMAGE */
-        .bookstore-gradient {
+        .coir-store-gradient {
             position: relative;
-            background: url('/assets/background.png') no-repeat center center;
+            background: url('/assets/coco_background.png') no-repeat center center;
             background-size: cover;
         }
 
         /* FENNEKIN ORANGE OVERLAY */
-        .bookstore-gradient::before {
+        .coir-store-gradient::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(44, 41, 41, 0.85), rgba(225, 90, 55, 0.55));
+            background: linear-gradient(rgba(104, 96, 77, 0.4), rgba(139, 115, 85, 0.5));
             z-index: 0;
         }
 
-        .bookstore-gradient>div {
+        .coir-store-gradient>div {
             position: relative;
             z-index: 1;
         }
@@ -70,23 +70,24 @@
             box-shadow: 0 0 0 3px rgba(252, 231, 124, 0.6);
         }
 
-        /* PRIMARY ORANGE BUTTON */
+        /* PRIMARY BUTTON */
         .btn-primary {
-            background-color: #e15a37;
-            color: #fff;
+            background-color: #D5C7AD;
+            color: #68604D;
         }
 
         .btn-primary:hover {
-            background-color: #ed865a;
+            background-color: #68604D;
+            color: white;
         }
 
-        /* LINKS — ORANGE WITH LIGHT HOVER */
+        /* LINKS — BROWN WITH LIGHTER HOVER */
         .link {
-            color: #e15a37;
+            color: #68604D;
         }
 
         .link:hover {
-            color: #ed865a;
+            color: #D5C7AD;
         }
     </style>
 </head>
@@ -96,12 +97,12 @@
     <main class="flex md:flex-row flex-col flex-grow">
 
         <!-- Left Section -->
-        <div class="flex flex-col justify-center items-center p-12 md:w-2/3 text-white bookstore-gradient">
+        <div class="flex flex-col justify-center items-center p-12 md:w-2/3 text-white coir-store-gradient">
             <div class="space-y-6 max-w-md text-center">
-                <h2 class="font-bold text-4xl md:text-5xl header-title">Welcome to Fennekin Folios</h2>
+                <h2 class="font-bold text-4xl md:text-5xl header-title">Welcome to EcoCoir Creations</h2>
                 <p class="text-white/90 text-lg leading-relaxed">
-                    From rare collections to modern favorites, your next great story awaits.
-                    Join our community of passionate readers and explore the world through books.
+                    Discover sustainable coconut coir products for home, garden, and crafts.
+                    Join our community of eco-conscious makers and creators.
                 </p>
             </div>
         </div>
@@ -112,9 +113,9 @@
 
                 <!-- Header -->
                 <div class="mb-8 text-center">
-                    <img src="/assets/fennekin.png" alt="Fennekin Logo" class="mx-auto mb-4 w-16 h-16">
-                    <h2 class="font-bold text-[#514d4d] text-3xl header-title">Welcome Back</h2>
-                    <p class="mt-2 text-[#514d4d]/80">Log in to continue your reading journey</p>
+                    <img src="/assets/eco_colored_logo.png" alt="EcoCoir Creations Logo" class="mx-auto mb-4 w-16 h-16">
+                    <h2 class="font-bold text-[#68604D] text-3xl header-title">Welcome Back</h2>
+                    <p class="mt-2 text-[#68604D]/80">Log in to continue your reading journey</p>
                 </div>
 
                 <!-- Login Form -->
@@ -123,11 +124,11 @@
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block mb-2 font-semibold text-[#514d4d]">Email Address</label>
+                        <label for="email" class="block mb-2 font-semibold text-[#68604D]">Email Address</label>
                         <input type="email" name="email" id="email" required
                             value="<?= esc($old['email'] ?? '') ?>"
                             placeholder="Enter your email"
-                            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus-ring text-gray-900 focus:ring-[#fce77c]/60 focus:ring-4 <?= isset($errors['email']) ? 'border-red-500' : 'border-gray-300' ?>">
+                            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus-ring text-gray-900 focus:ring-[#D5C7AD]/60 focus:ring-4 <?= isset($errors['email']) ? 'border-red-500' : 'border-gray-300' ?>">
                         <?php if (!empty($errors['email'])): ?>
                             <p class="mt-1 text-red-600 text-sm"><?= esc($errors['email']) ?></p>
                         <?php endif; ?>
@@ -135,12 +136,12 @@
 
                     <!-- Password -->
                     <div class="relative">
-                        <label for="password" class="block mb-2 font-semibold text-[#514d4d]">Password</label>
+                        <label for="password" class="block mb-2 font-semibold text-[#68604D]">Password</label>
 
                         <div class="relative">
                             <input type="password" name="password" id="password" required
                                 placeholder="Enter your password"
-                                class="w-full pr-10 px-4 py-3 border-2 rounded-xl text-gray-900 text-base focus:outline-none focus:ring-[#fce77c]/60 focus:ring-4 <?= isset($errors['password']) ? 'border-red-500' : 'border-gray-300' ?>">
+                                class="w-full pr-10 px-4 py-3 border-2 rounded-xl text-gray-900 text-base focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4 <?= isset($errors['password']) ? 'border-red-500' : 'border-gray-300' ?>">
 
                             <!-- Eye toggle -->
                             <button type="button" id="togglePasswordBtn"
@@ -171,7 +172,7 @@
                     </button>
 
                     <!-- Sign Up -->
-                    <p class="mt-4 text-[#514d4d] text-sm text-center">
+                    <p class="mt-4 text-[#68604D] text-sm text-center">
                         Don’t have an account?
                         <a href="/signupPage" class="font-semibold link">Create one now</a>
                     </p>

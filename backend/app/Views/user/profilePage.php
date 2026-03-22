@@ -17,8 +17,8 @@ $success = $session->getFlashdata('success') ?? null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Fennekin Folios</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico">
+    <title>Profile | EcoCoir Creations</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -45,18 +45,18 @@ $success = $session->getFlashdata('success') ?? null;
         <?= view('components/header', ['brandTitle' => 'Profile']) ?>
 
         <main class="flex-grow px-4 py-16">
-            <div class="mx-auto max-w-3xl bg-white/90 backdrop-blur-sm rounded-3xl p-10 shadow-xl">
-                <h1 class="text-3xl font-bold text-[#E15A37] header-title mb-4">Your Profile</h1>
+            <div class="bg-white/90 shadow-xl backdrop-blur-sm mx-auto p-10 rounded-3xl max-w-3xl">
+                <h1 class="mb-4 font-bold text-[#68604D] text-3xl header-title">Your Profile</h1>
 
                 <?php if ($success): ?>
-                    <div class="mb-6 rounded-lg bg-green-100 p-4 text-green-700">
+                    <div class="bg-green-100 mb-6 p-4 rounded-lg text-green-700">
                         <?= esc($success) ?>
                     </div>
                 <?php endif; ?>
 
                 <?php if (!empty($errors)): ?>
-                    <div class="mb-6 rounded-lg bg-red-100 p-4 text-red-700">
-                        <ul class="list-disc pl-5">
+                    <div class="bg-red-100 mb-6 p-4 rounded-lg text-red-700">
+                        <ul class="pl-5 list-disc">
                             <?php foreach ($errors as $error): ?>
                                 <li><?= esc($error) ?></li>
                             <?php endforeach; ?>
@@ -64,12 +64,12 @@ $success = $session->getFlashdata('success') ?? null;
                     </div>
                 <?php endif; ?>
 
-                <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex md:flex-row flex-col gap-8">
                     <div class="flex-shrink-0">
                         <?php if (!empty($user['avatar_url'])): ?>
-                            <img src="<?= esc($user['avatar_url']) ?>" alt="Avatar" class="w-40 h-40 rounded-full object-cover border-4 border-[#E15A37]">
+                            <img src="<?= esc($user['avatar_url']) ?>" alt="Avatar" class="border-[#68604D] border-4 rounded-full w-40 h-40 object-cover">
                         <?php else: ?>
-                            <div class="w-40 h-40 rounded-full bg-[#FCE77C] flex items-center justify-center text-5xl font-bold text-[#514d4d]">
+                            <div class="flex justify-center items-center bg-[#D5C7AD] rounded-full w-40 h-40 font-bold text-[#68604D] text-5xl">
                                 <?= esc(substr($user['profile']['display_name'] ?? ($user['first_name'] ?? ''), 0, 1)) ?>
                             </div>
                         <?php endif; ?>
@@ -79,21 +79,21 @@ $success = $session->getFlashdata('success') ?? null;
                         <?= csrf_field() ?>
 
                         <div>
-                            <label class="block text-sm font-semibold text-[#514d4d] mb-2">Display Name</label>
+                            <label class="block mb-2 font-semibold text-[#68604D] text-sm">Display Name</label>
                             <input type="text" name="display_name" required
                                 value="<?= esc($user['profile']['display_name'] ?? ($user['first_name'] . ' ' . $user['last_name'])) ?>"
-                                class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-[#E15A37] focus:ring-[#fce77c]/60 focus:ring-4">
+                                class="px-4 py-3 border border-gray-300 focus:border-[#68604D] rounded-xl focus:ring-[#D5C7AD]/60 focus:ring-4 w-full">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-[#514d4d] mb-2">Profile Photo</label>
+                            <label class="block mb-2 font-semibold text-[#68604D] text-sm">Profile Photo</label>
                             <input type="file" name="avatar" accept="image/*"
-                                class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:border-[#E15A37] focus:ring-[#fce77c]/60 focus:ring-4">
-                            <p class="mt-2 text-xs text-gray-600">Leave blank to keep current photo. Max 2MB.</p>
+                                class="px-4 py-3 border border-gray-300 focus:border-[#68604D] rounded-xl focus:ring-[#D5C7AD]/60 focus:ring-4 w-full">
+                            <p class="mt-2 text-gray-600 text-xs">Leave blank to keep current photo. Max 2MB.</p>
                         </div>
 
                         <button type="submit"
-                            class="bg-[#E15A37] hover:bg-[#ED865A] py-4 rounded-full w-full font-semibold text-white text-lg">
+                            class="bg-[#D5C7AD] hover:bg-[#68604D] py-4 rounded-full w-full font-semibold text-[#68604D] hover:text-white text-lg transition">
                             Save Changes
                         </button>
                     </form>

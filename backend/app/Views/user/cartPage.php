@@ -19,7 +19,7 @@ foreach ($cartItems as $item) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Your Cart | Fennekin Folios</title>
+    <title>Your Cart | EcoCoir Creations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@ foreach ($cartItems as $item) {
         }
 
         .overlay {
-            background: linear-gradient(rgba(44, 41, 41, 0.6), rgba(225, 90, 55, 0.4));
+            background: linear-gradient(rgba(138, 142, 117, 0.7), rgba(182, 197, 164, 0.45));
         }
 
         .header-title {
@@ -40,33 +40,34 @@ foreach ($cartItems as $item) {
         }
 
         .table-card {
-            border: 2px solid #FCE77C;
+            border: 2px solid #D5C7AD;
             border-radius: 20px;
         }
 
         .btn-primary {
-            background-color: #E15A37;
-            color: white;
+            background-color: #D5C7AD;
+            color: #68604D;
         }
 
         .btn-primary:hover {
-            background-color: #ED865A;
+            background-color: #68604D;
+            color: white;
         }
 
         .btn-yellow {
-            background-color: #FCE77C;
-            color: #514D4D;
+            background-color: #D5C7AD;
+            color: #68604D;
         }
 
         .btn-yellow:hover {
-            background-color: #ED865A;
+            background-color: #BEC5A4;
             color: white;
         }
     </style>
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <div class="overlay flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen overlay">
 
         <!-- HEADER -->
         <?= view('components/header.php') ?>
@@ -84,13 +85,13 @@ foreach ($cartItems as $item) {
             </section>
 
             <!-- CART BOX -->
-            <div class="bg-white shadow-xl mx-auto mt-6 p-8 table-card max-w-6xl">
+            <div class="table-card bg-white shadow-xl mx-auto mt-6 p-8 max-w-6xl">
 
                 <table class="min-w-full">
-                    <thead class="bg-[#E15A37] text-white rounded-lg">
+                    <thead class="bg-[#68604D] rounded-lg text-white">
                         <tr>
                             <th class="px-4 py-3 text-left">Image</th>
-                            <th class="px-4 py-3 text-left">Book</th>
+                            <th class="px-4 py-3 text-left">Product</th>
                             <th class="px-4 py-3 text-left">Price</th>
                             <th class="px-4 py-3 text-left">Quantity</th>
                             <th class="px-4 py-3 text-left">Subtotal</th>
@@ -104,7 +105,7 @@ foreach ($cartItems as $item) {
                                 <tr class="border-b">
                                     <td class="px-4 py-3">
                                         <img src="<?= esc($item['image']) ?>"
-                                            class="w-20 h-20 object-cover rounded-lg border border-[#FCE77C]">
+                                            class="border border-[#D5C7AD] rounded-lg w-20 h-20 object-cover">
                                     </td>
 
                                     <td class="px-4 py-3 font-semibold"><?= esc($item['title']) ?></td>
@@ -115,9 +116,9 @@ foreach ($cartItems as $item) {
                                         <form action="/cart/updateQuantity/<?= $item['id'] ?>" method="post" class="flex gap-2">
                                             <input type="number" name="quantity" min="1"
                                                 value="<?= $item['quantity'] ?>"
-                                                class="border border-[#E15A37] p-1 rounded w-16 text-center">
+                                                class="p-1 border border-[#8A8E75] rounded w-16 text-center">
 
-                                            <button class="btn-primary px-3 rounded">
+                                            <button class="px-3 rounded btn-primary" style="background-color: #8A8E75; color: #fff;">
                                                 Update
                                             </button>
                                         </form>
@@ -129,7 +130,7 @@ foreach ($cartItems as $item) {
 
                                     <td class="px-4 py-3">
                                         <a href="/cart/remove/<?= $item['id'] ?>"
-                                            class="text-red-500 font-bold hover:text-red-700">
+                                            class="font-bold text-red-500 hover:text-red-700">
                                             Remove
                                         </a>
                                     </td>
@@ -158,7 +159,7 @@ foreach ($cartItems as $item) {
                 <!-- Checkout Button -->
                 <div class="flex justify-end mt-6">
                     <a href="/checkout"
-                        class="btn-yellow px-6 py-3 rounded-full font-semibold shadow">
+                        class="shadow px-6 py-3 rounded-full font-semibold btn-yellow">
                         Proceed to Checkout
                     </a>
                 </div>

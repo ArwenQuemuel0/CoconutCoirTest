@@ -1,9 +1,9 @@
-<footer class="bg-[#e15a37] py-6 w-full text-white text-center">
+<footer class="bg-[#68604D] py-6 w-full text-[#F1EAD8] text-center">
     <p class="text-lg">
         &copy; <script>
             document.write(new Date().getFullYear())
         </script>
-        Fennekin Folios. All rights reserved.
+        EcoCoir Creations. All rights reserved.
     </p>
-    <p class="mt-2 text-[#fce77c] text-sm">A haven for book lovers</p>
+    <p class="mt-2 text-[#D5C7AD] text-sm">A sustainably sourced coconut coir marketplace</p>
 </footer>

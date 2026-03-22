@@ -23,8 +23,8 @@ foreach ($cart as $item) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | Fennekin Folios</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico">
+    <title>Checkout | EcoCoir Creations</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -41,7 +41,7 @@ foreach ($cart as $item) {
         }
 
         .overlay {
-            background: linear-gradient(rgba(44, 41, 41, 0.6), rgba(225, 90, 55, 0.4));
+            background: linear-gradient(rgba(138, 142, 117, 0.7), rgba(182, 197, 164, 0.45));
         }
 
         .header-title {
@@ -51,7 +51,7 @@ foreach ($cart as $item) {
         button:hover,
         .card-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(225, 90, 55, 0.3);
+            box-shadow: 0 8px 20px rgba(138, 142, 117, 0.35);
         }
     </style>
 </head>
@@ -77,24 +77,24 @@ foreach ($cart as $item) {
             </section>
 
             <!-- Cart Summary -->
-            <div class="bg-white shadow-xl mx-auto mt-6 p-8 border border-[#FCE77C] rounded-2xl max-w-6xl">
+            <div class="bg-white shadow-xl mx-auto mt-6 p-8 border border-[#D5C7AD] rounded-2xl max-w-6xl">
 
-                <h3 class="mb-8 font-bold text-[#E15A37] text-4xl text-center header-title">
+                <h3 class="mb-8 font-bold text-[#68604D] text-4xl text-center header-title">
                     Your Cart Summary
                 </h3>
 
                 <?php if (!empty($cart)): ?>
                     <div class="overflow-x-auto">
-                        <table class="bg-white border border-[#FCE77C] rounded-xl min-w-full">
-                            <thead class="bg-[#E15A37] text-white">
+                        <table class="bg-white border border-[#D5C7AD] rounded-xl min-w-full">
+                            <thead class="bg-[#68604D] text-white">
                                 <tr>
-                                    <th class="px-6 py-3 text-left">Book</th>
+                                    <th class="px-6 py-3 text-left">Product</th>
                                     <th class="px-6 py-3 text-center">Quantity</th>
                                     <th class="px-6 py-3 text-center">Price</th>
                                     <th class="px-6 py-3 text-center">Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-[#FCE77C]">
+                            <tbody class="divide-y divide-[#D5C7AD]">
                                 <?php foreach ($cart as $item): ?>
                                     <tr class="hover:bg-[#FFF8E7] transition">
                                         <td class="px-6 py-4 font-semibold"><?= esc($item['title']) ?></td>
@@ -108,7 +108,7 @@ foreach ($cart as $item) {
                     </div>
 
                     <!-- Total -->
-                    <div class="mt-8 font-bold text-3xl text-right text-[#514D4D]">
+                    <div class="mt-8 font-bold text-[#68604D] text-3xl text-right">
                         Total: ₱<?= number_format($total, 2) ?>
                     </div>
 
@@ -117,7 +117,7 @@ foreach ($cart as $item) {
                         <form action="/checkout/placeOrder" method="post">
                             <?= csrf_field() ?>
                             <button type="submit"
-                                class="bg-[#E15A37] hover:bg-[#ED865A] px-8 py-4 rounded-lg text-white font-bold text-xl shadow-lg">
+                                class="bg-[#D5C7AD] hover:bg-[#68604D] shadow-lg px-8 py-4 rounded-lg font-bold text-[#68604D] hover:text-white text-xl transition">
                                 Place Order
                             </button>
                         </form>

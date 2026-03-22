@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Requests | Achlys' Bookstore Admin</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
@@ -93,12 +93,12 @@
                                     </td>
 
                                     <!-- Requested Book -->
-                                    <td class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap max-w-[250px] truncate">
+                                    <td class="px-6 py-4 max-w-[250px] font-semibold text-gray-900 truncate whitespace-nowrap">
                                         <?= esc($req->requested_data) ?>
                                     </td>
 
                                     <!-- Message -->
-                                    <td class="px-6 py-4 text-gray-700 italic whitespace-nowrap max-w-[250px] truncate">
+                                    <td class="px-6 py-4 max-w-[250px] text-gray-700 truncate italic whitespace-nowrap">
                                         <?= esc($req->message ?: '—') ?>
                                     </td>
 
@@ -108,7 +108,7 @@
                                     </td>
 
                                     <!-- DATE Column -->
-                                    <td class="px-6 py-4 text-gray-700 whitespace-nowrap text-center">
+                                    <td class="px-6 py-4 text-gray-700 text-center whitespace-nowrap">
                                         <?= esc(date('Y-m-d', strtotime($req->created_at))) ?>
                                     </td>
 
@@ -118,7 +118,7 @@
                                             <?= csrf_field() ?>
                                             <select name="status"
                                                 onchange="this.form.submit()"
-                                                class="px-3 py-2 border border-[#FCE77C] rounded-lg bg-white text-gray-700">
+                                                class="bg-white px-3 py-2 border border-[#FCE77C] rounded-lg text-gray-700">
                                                 <option value="pending" <?= $req->status === 'pending'   ? 'selected' : '' ?>>Pending</option>
                                                 <option value="completed" <?= $req->status === 'completed' ? 'selected' : '' ?>>Completed</option>
                                                 <option value="rejected" <?= $req->status === 'rejected'  ? 'selected' : '' ?>>Rejected</option>
@@ -130,7 +130,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center py-6 text-gray-600">
+                                <td colspan="6" class="py-6 text-gray-600 text-center">
                                     No requests found.
                                 </td>
                             </tr>
@@ -149,7 +149,7 @@
     <!-- Sidebar -->
     <aside class="flex flex-col w-64 sidebar">
         <div class="p-6 border-[#FCE77C] border-b text-center">
-            <img src="/assets/fenecircle_logo.png" alt="Fennekin Folios Logo" class="mx-auto mb-3 w-16 h-16">
+            <img src="/assets/coircircle_logo.png" alt="EcoCoir Creations Logo" class="mx-auto mb-3 w-16 h-16">
             <h2 class="text-white text-2xl header-title">Admin Panel</h2>
         </div>
 

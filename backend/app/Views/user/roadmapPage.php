@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Achlys' Bookstore – Roadmap</title>
-    <link rel="shortcut icon" type="image/png" href="/assets/bookstore_icon.ico" />
+    <title>EcoCoir Creations – Roadmap</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="bg-fixed bg-cover bg-center text-[#3c2f2f] flex flex-col min-h-screen"
+<body class="flex flex-col bg-cover bg-center bg-fixed min-h-screen text-[#3c2f2f]"
     style="background-image: url('https://cdn.pixabay.com/photo/2017/10/15/08/56/neutral-2852878_1280.jpg');">
 
     <!-- HEADER -->
@@ -36,11 +36,11 @@
         <div class="mx-auto max-w-5xl">
 
             <!-- Page Header -->
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-10 text-white">
+            <div class="flex sm:flex-row flex-col sm:justify-between sm:items-center mb-10 text-white">
                 <div>
-                    <h1 class="text-4xl tracking-wide heading drop-shadow-sm">Achlys Bookstore Roadmap</h1>
+                    <h1 class="drop-shadow-sm text-4xl tracking-wide heading">EcoCoir Creations Roadmap</h1>
                     <p class="mt-2 text-[#F5F0EC] text-sm">
-                        A visual overview of our bookstore’s ongoing and upcoming milestones.
+                        A visual overview of our coconut coir marketplace ongoing and upcoming milestones.
                     </p>
                 </div>
             </div>
@@ -57,15 +57,15 @@
 
                 <?= view('components/cards/roadmap_cards', [
                     "title" => "Community Features",
-                    "description" => "Introduce book clubs, discussion boards, and author Q&A sessions to engage readers more deeply.",
+                    "description" => "Introduce product clubs, discussion boards, and author Q&A sessions to engage readers more deeply.",
                     "status" => "In Progress",
                     "priority" => "High",
                     "statusClass" => "bg-[#ffb74d]"
                 ]) ?>
 
                 <?= view('components/cards/roadmap_cards', [
-                    "title" => "E-Book Service Management",
-                    "description" => "Manage e-books in the catalog, adjust pricing, and handle digital access for online readers.",
+                    "title" => "Coir Product Management",
+                    "description" => "Manage coir inventory in the catalog, adjust pricing, and support product listings for sustainable goods.",
                     "status" => "Planned",
                     "priority" => "Medium",
                     "statusClass" => "bg-[#64b5f6]"
@@ -80,8 +80,8 @@
                 ]) ?>
 
                 <?= view('components/cards/roadmap_cards', [
-                    "title" => "Book Request System",
-                    "description" => "Let users request unavailable books and get notified when they’re restocked or released.",
+                    "title" => "Product Request System",
+                    "description" => "Let users request unavailable coir products and get notified when they’re restocked or released.",
                     "status" => "Backlog",
                     "priority" => "Low",
                     "statusClass" => "bg-[#73397e]"
