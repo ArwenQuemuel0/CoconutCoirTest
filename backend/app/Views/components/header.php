@@ -26,11 +26,23 @@ $homeUrl = $user ? '/shop' : '/';
 
         <!-- Desktop Nav + Logout + Cart -->
         <div class="hidden md:flex items-center space-x-4">
-            <a href="<?= esc($homeUrl) ?>" class="bg-[#D5C7AD] hover:bg-[#BEC5A4] shadow-lg px-6 py-3 rounded-full text-[#68604D] btn-main">
+            <a href="/" class="bg-[#D5C7AD] hover:bg-[#BEC5A4] shadow-lg px-6 py-3 rounded-full text-[#68604D] btn-main">
                 Home
+            </a>
+            <a href="/featured" class="bg-white hover:bg-[#F1EAD8] shadow-lg px-6 py-3 rounded-full text-[#68604D] btn-main">
+                Featured
+            </a>
+            <a href="/shop" class="bg-white hover:bg-[#F1EAD8] shadow-lg px-6 py-3 rounded-full text-[#68604D] btn-main">
+                Shop
             </a>
 
             <?php if ($user): ?>
+                <?php if (in_array($user['type'], ['seller', 'buyer-seller', 'admin'])): ?>
+                    <a href="/seller/dashboard" class="inline-block bg-white hover:opacity-80 shadow-lg px-6 py-3 rounded-full text-[#68604D]">
+                        Seller Dashboard
+                    </a>
+                <?php endif; ?>
+
                 <a href="/cart" class="relative flex items-center ml-4">
                     <img src="/assets/cart_icon.png" alt="Cart" class="w-10 h-10">
                     <?php if ($cartCount > 0): ?>
@@ -66,8 +78,13 @@ $homeUrl = $user ? '/shop' : '/';
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden bg-[#8A8E75]">
-        <a href="<?= esc($homeUrl) ?>" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">Home</a>
+        <a href="/" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">Home</a>
+        <a href="/featured" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">Featured</a>
+        <a href="/shop" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">Shop</a>
         <?php if ($user): ?>
+            <?php if (in_array($user['type'], ['seller', 'buyer-seller', 'admin'])): ?>
+                <a href="/seller/dashboard" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">Seller Dashboard</a>
+            <?php endif; ?>
             <a href="/profile" class="block hover:bg-[#D5C7AD]/20 px-6 py-3 text-white">
                 Profile
             </a>

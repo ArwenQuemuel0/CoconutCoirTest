@@ -156,6 +156,31 @@
                             <?php endif; ?>
                         </div>
 
+                        <!-- ADDRESS -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Address</label>
+                            <input type="text" name="address" required
+                                value="<?= esc($old['address'] ?? '') ?>"
+                                placeholder="Enter your address"
+                                class="px-4 py-4 border-2 <?= isset($errors['address']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
+                            <?php if (!empty($errors['address'])): ?>
+                                <p class="mt-2 text-red-600 text-sm"><?= esc($errors['address']) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- MOBILE -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-[#68604D]">Mobile Number</label>
+                            <input type="tel" name="mobile" required
+                                value="<?= esc($old['mobile'] ?? '') ?>"
+                                placeholder="Enter your mobile number"
+                                class="px-4 py-4 border-2 <?= isset($errors['mobile']) ? 'border-red-500' : 'border-gray-300' ?> rounded-xl w-full text-gray-900 focus:outline-none focus:ring-[#D5C7AD]/60 focus:ring-4">
+                            <?php if (!empty($errors['mobile'])): ?>
+                                <p class="mt-2 text-red-600 text-sm"><?= esc($errors['mobile']) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+
                         <!-- PASSWORD -->
                         <div>
                             <label class="block mb-2 font-semibold text-[#68604D]">Password</label>

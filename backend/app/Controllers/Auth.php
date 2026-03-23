@@ -76,6 +76,10 @@ class Auth extends BaseController
             return redirect()->to('/admin/adminDashboard');
         }
 
+        if ($type === 'seller' || $type === 'buyer-seller') {
+            return redirect()->to('/seller/dashboard');
+        }
+
         return redirect()->to('/shop');
     }
 
@@ -124,6 +128,8 @@ class Auth extends BaseController
         $validation->setRule('email', 'Email', 'required|valid_email');
         $validation->setRule('password', 'Password', 'required|min_length[6]');
         $validation->setRule('password_confirm', 'Confirm Password', 'required|matches[password]');
+        $validation->setRule('address', 'Address', 'required|min_length[5]');
+        $validation->setRule('mobile', 'Mobile Number', 'required|min_length[10]|max_length[20]');
         $validation->setRule('avatar', 'Profile picture', 'uploaded[avatar]|is_image[avatar]|max_size[avatar,2048]|ext_in[avatar,png,jpg,jpeg]');
 
         $post = $request->getPost();
@@ -148,6 +154,8 @@ class Auth extends BaseController
             'email'         => $post['email'],
             'password_hash' => password_hash($post['password'], PASSWORD_DEFAULT),
             'type'          => 'client',
+            'address'       => $post['address'],
+            'mobile'        => $post['mobile'],
             'account_status' => 1,
         ];
 

@@ -112,16 +112,45 @@ foreach ($cart as $item) {
                         Total: ₱<?= number_format($total, 2) ?>
                     </div>
 
-                    <!-- PLACE ORDER BUTTON -->
-                    <div class="mt-10 text-right">
-                        <form action="/checkout/placeOrder" method="post">
-                            <?= csrf_field() ?>
+                    <form action="/checkout/placeOrder" method="post">
+                        <?= csrf_field() ?>
+
+                        <!-- Checkout options -->
+                        <div class="gap-6 grid grid-cols-1 md:grid-cols-2 mt-8">
+                            <div>
+                                <label class="font-semibold text-[#68604D]">Payment Method</label>
+                                <select name="payment_method" required
+                                    class="p-3 border rounded-lg w-full">
+                                    <option value="cash">Cash on delivery</option>
+                                    <option value="card">Credit/Debit Card</option>
+                                    <option value="gcash">GCash</option>
+                                    <option value="paymaya">PayMaya</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="font-semibold text-[#68604D]">Delivery Method</label>
+                                <select name="delivery_method" required
+                                    class="p-3 border rounded-lg w-full">
+                                    <option value="pickup">Pickup</option>
+                                    <option value="delivery">Delivery</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <?php if (session()->getFlashdata('checkout_errors')): ?>
+                            <div class="mt-4 text-red-600">
+                                <?= implode('<br>', session()->getFlashdata('checkout_errors')) ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- PLACE ORDER BUTTON -->
+                        <div class="mt-10 text-right">
                             <button type="submit"
                                 class="bg-[#D5C7AD] hover:bg-[#68604D] shadow-lg px-8 py-4 rounded-lg font-bold text-[#68604D] hover:text-white text-xl transition">
                                 Place Order
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
 
                 <?php else: ?>
                     <p class="mt-12 text-gray-600 text-xl text-center">Your cart is empty.</p>

@@ -18,6 +18,10 @@ class StocksModel extends Model
         'price',
         'quantity',
         'image',
+        'seller_id',
+        'category',
+        'is_featured',
+        'sales_count',
         'created_at',
         'updated_at',
         'deleted_at'

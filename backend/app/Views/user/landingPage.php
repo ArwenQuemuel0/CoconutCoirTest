@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoCoir Creations</title>
+    <title>EcoCoir Creations - Sustainable Coconut Coir Products</title>
     <link rel="shortcut icon" type="image/png" href="/assets/coir_icon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,159 +14,385 @@
 
     <style>
         body {
-            background: url('/assets/coco_background.png') no-repeat center center fixed;
-            background-size: cover;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc0 100%);
             font-family: 'Roboto Slab', serif;
         }
 
-        /* OVERLAY UPDATED TO BROWN EARTH TONES */
-        .overlay {
-            background: linear-gradient(rgba(104, 96, 77, 0.4), rgba(139, 115, 85, 0.5));
-        }
-
-        /* PRIMARY COIR - BROWN */
-        .custom-neutral {
-            background-color: #68604D;
-        }
-
-        .header-title,
-        h1,
-        h2,
-        h3,
-        h4,
-        .heading {
+        .header-title {
             font-family: "Righteous", sans-serif;
             font-weight: 400;
         }
 
-        button,
-        a.btn-main,
-        .card-hover {
+        .product-card {
             transition: all 0.3s ease;
         }
 
-        /* ORANGE SHADOW GLOW */
-        button:hover,
-        a.btn-main:hover,
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(73, 48, 42, 0.3);
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(104, 96, 77, 0.2);
         }
 
-        input:focus,
-        .focus-ring:focus {
-            transition: all 0.3s ease;
-            transform: scale(1.02);
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(104, 96, 77, 0.9) 0%, rgba(139, 115, 85, 0.8) 100%),
+                url('/assets/coco_background.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #68604D 0%, #8B7355 100%);
+        }
+
+        .category-card:hover {
+            background: linear-gradient(135deg, #8B7355 0%, #68604D 100%);
         }
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<?php
+$session = session();
+$isLoggedIn = $session->has('user');
+?>
 
-    <div class="flex flex-col min-h-screen overlay">
-        <?= view('components/header.php') ?>
+<body class="text-[#514d4d]">
 
-        <main class="flex-grow">
+    <!-- Header -->
+    <header class="top-0 z-50 sticky bg-white shadow-lg">
+        <div class="flex justify-between items-center mx-auto px-6 py-4 max-w-7xl">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <img src="/assets/eco_white_logo.png" alt="EcoCoir Creations" class="w-12 h-12">
+                <h1 class="font-bold text-[#68604D] text-2xl header-title">EcoCoir Creations</h1>
+            </div>
 
-            <!-- Hero Section -->
-            <section class="flex justify-center items-center py-32 text-center">
-                <div class="bg-white/10 backdrop-blur-sm mx-auto p-8 px-4 rounded-2xl max-w-4xl">
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="/" class="font-semibold text-[#68604D] hover:text-[#8A8E75] transition">Home</a>
+                <a href="/featured" class="font-semibold text-[#68604D] hover:text-[#8A8E75] transition">Featured</a>
+                <a href="/shop" class="font-semibold text-[#68604D] hover:text-[#8A8E75] transition">Shop</a>
+                <a href="#about" class="font-semibold text-[#68604D] hover:text-[#8A8E75] transition">About</a>
+                <a href="#contact" class="font-semibold text-[#68604D] hover:text-[#8A8E75] transition">Contact</a>
+            </nav>
 
-                    <!-- ICON CIRCLE -->
-                    <div class="flex justify-center items-center bg-[#68604D] mx-auto mb-6 rounded-full w-20 h-20 text-white text-3xl">
-                        🥥
+            <!-- Cart & Auth -->
+            <div class="flex items-center space-x-4">
+                <a href="/cart" class="relative">
+                    <img src="/assets/cart_icon.png" alt="Cart" class="w-8 h-8">
+                </a>
+                <a href="/loginPage" class="bg-[#68604D] hover:bg-[#8A8E75] px-4 py-2 rounded-lg font-semibold text-white text-sm transition">
+                    Sign In
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="bg-red-100 mx-auto mb-6 px-6 py-3 border border-red-300 rounded-md max-w-7xl text-red-800">
+                <?= esc(session()->getFlashdata('error')) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="bg-green-100 mx-auto mb-6 px-6 py-3 border border-green-300 rounded-md max-w-7xl text-green-800">
+                <?= esc(session()->getFlashdata('success')) ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Hero Section with Super Crema style layout -->
+        <section class="bg-[#F9F5EB] py-14">
+            <div class="mx-auto px-6 max-w-7xl">
+                <div class="gap-6 grid xl:grid-cols-12">
+                    <!-- Left hero image block -->
+                    <div class="xl:col-span-7 bg-white shadow-lg rounded-3xl overflow-hidden">
+                        <img src="/assets/coco_background.png" alt="EcoCoir Storefront" class="w-full h-96 object-cover">
+                        <div class="p-10">
+                            <p class="mb-4 font-semibold text-[#8A8E75] text-sm uppercase tracking-widest">Sustainable Selection</p>
+                            <h1 class="mb-4 font-bold text-[#3A3B2A] text-4xl md:text-5xl">EcoCoir Creations</h1>
+                            <p class="mb-6 text-[#5B5346] text-lg">30% off on select coconut coir essentials. Natural, compostable, and perfect for your home or garden.</p>
+                            <a href="/shop" class="inline-block bg-[#8A8E75] hover:bg-[#6f7358] px-8 py-3 rounded-lg font-semibold text-white">Start Shopping</a>
+                        </div>
                     </div>
 
-                    <h2 class="drop-shadow-2xl mb-8 font-bold text-white text-5xl md:text-7xl header-title">
-                        Discover Sustainable Coconut Coir Products
-                    </h2>
+                    <!-- Right mini category tiles -->
+                    <div class="gap-4 grid xl:col-span-5">
+                        <a href="/shop?filter=featured" class="flex items-center gap-4 bg-white shadow-sm hover:shadow-md p-5 border border-[#E1D9C5] rounded-2xl transition">
+                            <div class="bg-[#D5C7AD] p-4 rounded-xl text-2xl">🌟</div>
+                            <div>
+                                <h3 class="font-semibold text-[#3A3B2A]">Featured Picks</h3>
+                                <p class="text-[#7A775F] text-sm">Handpicked favorites of the week.</p>
+                            </div>
+                        </a>
+                        <a href="/shop?filter=trending" class="flex items-center gap-4 bg-white shadow-sm hover:shadow-md p-5 border border-[#E1D9C5] rounded-2xl transition">
+                            <div class="bg-[#D5C7AD] p-4 rounded-xl text-2xl">🔥</div>
+                            <div>
+                                <h3 class="font-semibold text-[#3A3B2A]">Trending Now</h3>
+                                <p class="text-[#7A775F] text-sm">Popular eco-products customers love.</p>
+                            </div>
+                        </a>
+                        <a href="/shop?filter=best-seller" class="flex items-center gap-4 bg-white shadow-sm hover:shadow-md p-5 border border-[#E1D9C5] rounded-2xl transition">
+                            <div class="bg-[#D5C7AD] p-4 rounded-xl text-2xl">🏆</div>
+                            <div>
+                                <h3 class="font-semibold text-[#3A3B2A]">Best Sellers</h3>
+                                <p class="text-[#7A775F] text-sm">Top-rated coir choices.</p>
+                            </div>
+                        </a>
+                        <a href="/shop" class="flex items-center gap-4 bg-white shadow-sm hover:shadow-md p-5 border border-[#E1D9C5] rounded-2xl transition">
+                            <div class="bg-[#D5C7AD] p-4 rounded-xl text-2xl">🛒</div>
+                            <div>
+                                <h3 class="font-semibold text-[#3A3B2A]">All Products</h3>
+                                <p class="text-[#7A775F] text-sm">Explore our complete collection.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
 
-                    <p class="mb-12 text-[#F1EAD8] text-xl md:text-3xl leading-relaxed">
-                        Explore eco-friendly coconut coir collections for home, farm, and craft projects.
-                    </p>
+                <!-- Weekly Best -->
+                <div class="mt-10">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="font-bold text-[#3A3B2A] text-3xl">Best this week</h2>
+                            <p class="text-[#7A775F] text-sm">Handpicked for you from our top sellers.</p>
+                        </div>
+                        <a href="/shop" class="font-semibold text-[#8A8E75] hover:text-[#68604D]">See all products →</a>
+                    </div>
 
-                    <a href="/loginPage"
-                        class="inline-block bg-[#D5C7AD] hover:bg-[#68604D] shadow-xl px-10 py-5 rounded-full font-semibold text-white text-xl md:text-2xl">
-                        Browse Products
+                    <div class="gap-5 grid md:grid-cols-2 lg:grid-cols-4">
+                        <?php foreach (array_slice($randomProducts, 0, 4) as $product): ?>
+                            <div class="bg-white shadow-sm p-4 border border-[#E1D9C5] rounded-2xl">
+                                <img src="<?= esc($product->image) ?>" alt="<?= esc($product->name) ?>" class="mb-3 rounded-xl w-full h-44 object-cover">
+                                <h3 class="font-semibold text-[#3A3B2A] text-lg line-clamp-1"><?= esc($product->name) ?></h3>
+                                <p class="mb-2 text-[#7A775F] text-sm line-clamp-2"><?= esc(substr($product->description, 0, 70)) ?>...</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-[#8A8E75]">₱<?= number_format($product->price, 2) ?></span>
+                                    <?php if ($isLoggedIn): ?>
+                                        <button onclick="addToCart('<?= $product->id ?>', '<?= esc(addslashes($product->name)) ?>', '<?= $product->price ?>', '<?= $product->quantity ?>')" class="bg-[#8A8E75] hover:bg-[#68604D] px-3 py-2 rounded-lg font-semibold text-white text-xs">
+                                            Add to cart
+                                        </button>
+                                    <?php else: ?>
+                                        <a href="/loginPage" class="bg-[#BEC5A4] hover:bg-[#8A8E75] px-3 py-2 rounded-lg font-semibold text-white text-xs">Sign in to add</a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Story + Coconut Coir Explained -->
+        <section class="bg-[#F9F7EE] py-20">
+            <div class="mx-auto px-6 max-w-7xl">
+                <h2 class="mb-6 font-bold text-[#68604D] text-4xl text-center header-title">Our Story: Roots in Coconut Coir</h2>
+                <div class="items-center gap-10 grid lg:grid-cols-2">
+                    <div>
+                        <p class="mb-4 text-[#5b5346] text-lg">
+                            EcoCoir Creations started as a family mission to reduce coconut waste and repurpose it as practical lifestyle products.
+                            We transformed a small backyard project into a trusted source for gardeners, crafters, and sustainable homeowners.
+                        </p>
+                        <p class="mb-4 text-[#5b5346] text-lg">
+                            Since then, we have expanded responsibly while maintaining ecological impact, community benefit, and product quality.
+                        </p>
+                        <p class="mb-4 text-[#5b5346] text-lg">
+                            Coconut coir is lightweight, porous, and biodegradable, used in gardening, packaging, and home comforts while replacing plastics.
+                        </p>
+                        <a href="/featured" class="inline-block bg-[#8A8E75] hover:bg-[#6f7358] px-8 py-3 rounded-lg font-semibold text-white">Explore Featured Collection</a>
+                    </div>
+                    <div class="gap-4 grid">
+                        <div class="bg-white shadow-sm p-6 border border-[#dcd3c0] rounded-2xl">
+                            <h3 class="mb-2 font-semibold text-[#68604D] text-xl">What is Coconut Coir?</h3>
+                            <p class="text-[#5b5346] text-sm">A natural fiber from coconut husks, excellent for moisture control, soil aeration, and zero-waste products.</p>
+                        </div>
+                        <div class="bg-white shadow-sm p-6 border border-[#dcd3c0] rounded-2xl">
+                            <h3 class="mb-2 font-semibold text-[#68604D] text-xl">Why it matters</h3>
+                            <p class="text-[#5b5346] text-sm">Eco-friendly, renewable, and compostable—coir turns agricultural byproduct into valuable eco goods.</p>
+                        </div>
+                        <div class="bg-white shadow-sm p-6 border border-[#dcd3c0] rounded-2xl">
+                            <h3 class="mb-2 font-semibold text-[#68604D] text-xl">Our Promise</h3>
+                            <p class="text-[#5b5346] text-sm">Quality, transparency, and community support, with returns to farmers and zero harmful chemicals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="bg-white py-20">
+            <div class="mx-auto px-6 max-w-7xl">
+                <h2 class="mb-12 font-bold text-[#68604D] text-4xl text-center header-title">
+                    Why Choose EcoCoir?
+                </h2>
+                <div class="gap-8 grid md:grid-cols-3 text-center">
+                    <div class="p-6">
+                        <div class="mb-4 text-6xl">🌱</div>
+                        <h3 class="mb-3 font-semibold text-[#68604D] text-xl">100% Natural</h3>
+                        <p class="text-[#5b5346]">Made from renewable coconut husk fibers, completely biodegradable and eco-friendly.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-4 text-6xl">♻️</div>
+                        <h3 class="mb-3 font-semibold text-[#68604D] text-xl">Sustainable</h3>
+                        <p class="text-[#5b5346]">Reduces waste by transforming agricultural byproducts into useful, long-lasting products.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-4 text-6xl">🏠</div>
+                        <h3 class="mb-3 font-semibold text-[#68604D] text-xl">Versatile</h3>
+                        <p class="text-[#5b5346]">Perfect for gardening, home decor, crafts, and more. Durable and naturally water-retentive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Testimonials/Trust -->
+        <section class="bg-[#68604D] py-20 text-white">
+            <div class="mx-auto px-6 max-w-7xl text-center">
+                <h2 class="mb-12 font-bold text-4xl header-title">What Our Customers Say</h2>
+                <div class="gap-8 grid md:grid-cols-2">
+                    <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
+                        <div class="mb-4 text-4xl">⭐⭐⭐⭐⭐</div>
+                        <p class="mb-4 italic">"Amazing quality coconut coir products! My plants have never been healthier. Highly recommend for any gardener."</p>
+                        <p class="font-semibold">- Maria S., Home Gardener</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
+                        <div class="mb-4 text-4xl">⭐⭐⭐⭐⭐</div>
+                        <p class="mb-4 italic">"EcoCoir's commitment to sustainability is evident in every product. Love supporting this mission!"</p>
+                        <p class="font-semibold">- John D., Eco-conscious Consumer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="bg-[#D5C7AD] py-20">
+            <div class="mx-auto px-6 max-w-4xl text-center">
+                <h2 class="mb-6 font-bold text-[#68604D] text-4xl header-title">
+                    Ready to Make a Difference?
+                </h2>
+                <p class="mb-8 text-[#5b5346] text-xl">
+                    Join thousands of customers choosing sustainable living with our coconut coir products.
+                </p>
+                <div class="flex sm:flex-row flex-col justify-center gap-4">
+                    <a href="/featured" class="bg-[#68604D] hover:bg-[#8A8E75] px-8 py-4 rounded-full font-semibold text-white text-lg transition">
+                        Start Shopping Now
+                    </a>
+                    <a href="#contact" class="hover:bg-[#68604D] px-8 py-4 border-[#68604D] border-2 rounded-full font-semibold text-[#68604D] hover:text-white text-lg transition">
+                        Contact Us
                     </a>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Welcome + EcoCoir Mission -->
-            <section id="about" class="bg-white/90 backdrop-blur-sm py-24 text-[#514d4d]">
-                <div class="mx-auto px-4 max-w-6xl text-center">
-
-                    <h3 class="mb-8 font-bold text-[#68604D] text-5xl header-title">
-                        Welcome to EcoCoir Creations
-                    </h3>
-
-                    <p class="mx-auto mb-6 max-w-3xl text-[#5b5346] text-2xl md:text-3xl leading-relaxed">
-                        EcoCoir Creations is your sustainable online shop for handcrafted coconut coir solutions.
-                        We transform coconut husk waste into eco-friendly essentials—plant pots, doormats, soil enhancers,
-                        and biodegradable packaging—helping you live greener with renewable, natural materials.
-                    </p>
-
-                    <div class="gap-8 grid md:grid-cols-3 mt-10">
-                        <div class="bg-[#F1EAD8] shadow-sm p-6 border-[#D5C7AD] border-2 rounded-xl">
-                            <h4 class="mb-3 font-semibold text-[#68604D] text-2xl">Sustainable Roots</h4>
-                            <p class="text-lg">Coconut coir is renewable, plastic-free, and compostable—designed for better gardens and planet health.</p>
-                        </div>
-                        <div class="bg-[#F1EAD8] shadow-sm p-6 border-[#D5C7AD] border-2 rounded-xl">
-                            <h4 class="mb-3 font-semibold text-[#68604D] text-2xl">Handcrafted Quality</h4>
-                            <p class="text-lg">Each product is crafted from recycled coir fibers to deliver durability and natural performance.</p>
-                        </div>
-                        <div class="bg-[#F1EAD8] shadow-sm p-6 border-[#D5C7AD] border-2 rounded-xl">
-                            <h4 class="mb-3 font-semibold text-[#68604D] text-2xl">Green Lifestyle</h4>
-                            <p class="text-lg">From home decor to garden essentials, pick products that support reduced waste and practice circular living.</p>
-                        </div>
+        <!-- Contact Section -->
+        <section id="contact" class="bg-white py-20">
+            <div class="mx-auto px-6 max-w-4xl text-center">
+                <h2 class="mb-8 font-bold text-[#68604D] text-4xl header-title">Get in Touch</h2>
+                <div class="flex justify-center items-center mb-6">
+                    <div class="bg-[#68604D] p-4 rounded-full">
+                        <span class="text-3xl">📧</span>
                     </div>
-
                 </div>
-            </section>
+                <p class="mb-6 text-[#5b5346] text-xl">
+                    Have questions about our products or need help choosing the right coconut coir solution?
+                </p>
+                <p class="text-[#68604D] text-lg">
+                    <strong>Email:</strong> hello@ecocoir.com<br>
+                    <strong>Phone:</strong> (555) 123-COIR<br>
+                    <strong>Hours:</strong> Mon-Fri 9AM-6PM PST
+                </p>
+            </div>
+        </section>
 
+    </main>
 
-            <!-- CTA Section -->
-            <section id="cta-section" class="bg-white/90 backdrop-blur-sm py-32 w-full text-[#68604D]">
-                <div class="text-center">
-                    <?= view('components/cta', [
-                        'heading' => 'Build with Natural Coconut Coir',
-                        'sub' => 'Find eco-friendly DIY, grow, and home solutions.',
-                        'primary' => ['label' => 'Shop Coir Products', 'href' => '/loginPage'],
-                    ]) ?>
+    <!-- Footer -->
+    <footer class="bg-[#68604D] py-12 text-white">
+        <div class="mx-auto px-6 max-w-7xl">
+            <div class="gap-8 grid md:grid-cols-4 md:text-left text-center">
+                <div>
+                    <h3 class="mb-4 font-bold text-xl header-title">EcoCoir Creations</h3>
+                    <p class="text-white/80">Sustainable coconut coir products for a better planet.</p>
                 </div>
-            </section>
-
-            <!-- Contact -->
-            <section id="contact" class="bg-white/90 backdrop-blur-sm py-20 text-[#68604D]">
-                <div class="mx-auto px-4 max-w-4xl text-center">
-
-                    <h3 class="mb-8 font-bold text-[#68604D] text-4xl header-title">
-                        Contact Us
-                    </h3>
-
-                    <div class="flex justify-center items-center bg-[#D5C7AD] mx-auto mb-6 rounded-full w-16 h-16 text-[#68604D] text-2xl">
-                        📧
+                <div>
+                    <h4 class="mb-4 font-semibold">Quick Links</h4>
+                    <ul class="space-y-2 text-white/80">
+                        <li><a href="/featured" class="hover:text-white transition">Featured Products</a></li>
+                        <li><a href="/shop" class="hover:text-white transition">All Products</a></li>
+                        <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-semibold">Support</h4>
+                    <ul class="space-y-2 text-white/80">
+                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="/loginPage" class="hover:text-white transition">My Account</a></li>
+                        <li><a href="/orders" class="hover:text-white transition">Order History</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-semibold">Follow Us</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <span class="text-2xl">🌿</span>
+                        <span class="text-2xl">🌴</span>
+                        <span class="text-2xl">♻️</span>
                     </div>
-
-                    <p class="mb-4 text-lg">
-                        Email:
-                        <a href="mailto:support@ecocoircreations.com"
-                            class="font-semibold text-[#68604D] hover:text-[#D5C7AD] underline">
-                            support@ecocoircreations.com
-                        </a>
-                    </p>
-
-                    <p>
-                        For inquiries, partnerships, or bulk orders, reach out anytime!
-                    </p>
-
                 </div>
-            </section>
+            </div>
+            <div class="mt-8 pt-8 border-white/20 border-t text-white/60 text-center">
+                <p>&copy; 2026 EcoCoir Creations. All rights reserved. Made with ❤️ for our planet.</p>
+            </div>
+        </div>
+    </footer>
 
-            <?= view('components/footer') ?>
+    <!-- Add to Cart Modal -->
+    <div id="cartModal" class="hidden z-50 fixed inset-0 justify-center items-center bg-black/50">
+        <div class="bg-white mx-4 p-8 rounded-2xl w-full max-w-md">
+            <h3 class="mb-4 font-bold text-[#68604D] text-2xl">Add to Cart</h3>
+            <p id="modalTitle" class="mb-2 font-semibold text-lg"></p>
+            <p class="mb-4 text-gray-600">Available: <span id="modalStock"></span></p>
 
-        </main>
+            <form action="/cart/add" method="post">
+                <?= csrf_field() ?>
+                <input type="hidden" id="modalProductId" name="id">
+                <input type="hidden" id="modalProductTitle" name="title">
+                <input type="hidden" id="modalProductPrice" name="price">
+
+                <label class="block mb-2 font-semibold text-[#68604D]">Quantity</label>
+                <input type="number" name="quantity" min="1" value="1" id="modalQuantity"
+                    class="mb-6 p-3 border border-gray-300 rounded-lg w-full">
+
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeCartModal()"
+                        class="flex-1 bg-gray-300 hover:bg-gray-400 px-4 py-3 rounded-lg font-semibold">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="flex-1 bg-[#68604D] hover:bg-[#8A8E75] px-4 py-3 rounded-lg font-semibold text-white">
+                        Add to Cart
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        function addToCart(id, title, price, stock) {
+            document.getElementById('cartModal').classList.remove('hidden');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalStock').textContent = stock;
+            document.getElementById('modalProductId').value = id;
+            document.getElementById('modalProductTitle').value = title;
+            document.getElementById('modalProductPrice').value = price;
+            document.getElementById('modalQuantity').max = stock;
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) closeCartModal();
+        });
+    </script>
 
 </body>
 

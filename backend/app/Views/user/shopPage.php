@@ -1,12 +1,8 @@
 <?php
 $session = session();
 
-if (!$session->has('user')) {
-    return redirect()->to('/loginPage');
-}
-
 // Use the passed in name (preferred) or fall back to profile data.
-$userFirstName = $userFirstName ?? ($session->get('user')['profile']['display_name'] ?? $session->get('user')['first_name'] ?? 'Reader');
+$userFirstName = $userFirstName ?? ($session->get('user')['profile']['display_name'] ?? $session->get('user')['first_name'] ?? 'Guest');
 
 // Total *quantity* in cart (not total items)
 $cart = $session->get('cart') ?? [];
@@ -63,13 +59,25 @@ foreach ($cart as $c) {
 
         <main class="flex-grow">
 
+            <?php if (session()->getFlashdata('error')): ?>
+                <div class="bg-red-100 mx-auto mb-4 px-4 py-2 border border-red-300 rounded-md max-w-6xl text-red-800">
+                    <?= esc(session()->getFlashdata('error')) ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('success')): ?>
+                <div class="bg-green-100 mx-auto mb-4 px-4 py-2 border border-green-300 rounded-md max-w-6xl text-green-800">
+                    <?= esc(session()->getFlashdata('success')) ?>
+                </div>
+            <?php endif; ?>
+
             <!-- Greeting -->
             <section class="py-16 text-center">
                 <h2 class="drop-shadow-lg font-bold text-white text-3xl md:text-4xl header-title">
-                    Hello, <?= esc($userFirstName) ?>!
+                    <?= $isLoggedIn ? "Hello, " . esc($userFirstName) . "!" : "Welcome to EcoCoir Creations!" ?>
                 </h2>
                 <p class="mt-2 text-white/90 text-lg md:text-xl">
-                    Browse our sustainable coconut coir products.
+                    <?= $isLoggedIn ? "Browse our sustainable coconut coir products." : "Discover eco-friendly coconut coir solutions for your home and garden." ?>
                 </p>
             </section>
 
@@ -77,9 +85,16 @@ foreach ($cart as $c) {
             <section class="bg-white/90 backdrop-blur-sm py-20 text-[#68604D]">
                 <div class="mx-auto px-4 max-w-6xl">
 
-                    <h3 class="mb-12 font-bold text-[#68604D] text-4xl text-center header-title">
-                        Featured EcoCoir Products
+                    <h3 class="mb-6 font-bold text-[#68604D] text-4xl text-center header-title">
+                        EcoCoir Products
                     </h3>
+
+                    <nav class="mb-8 text-center">
+                        <a href="/shop" class="mx-2 text-[#68604D] hover:text-[#8A8E75]">All</a>
+                        <a href="/shop?filter=featured" class="mx-2 text-[#68604D] hover:text-[#8A8E75]">Featured</a>
+                        <a href="/shop?filter=trending" class="mx-2 text-[#68604D] hover:text-[#8A8E75]">Trending</a>
+                        <a href="/shop?filter=best-seller" class="mx-2 text-[#68604D] hover:text-[#8A8E75]">Best Sellers</a>
+                    </nav>
 
                     <div class="gap-8 grid md:grid-cols-3">
 
@@ -96,16 +111,23 @@ foreach ($cart as $c) {
 
                                     <p class="font-bold text-[#8A8E75] text-lg">₱<?= number_format($p->price, 2) ?></p>
 
-                                    <button
-                                        onclick="openCartModal(
-                                        '<?= $p->id ?>',
-                                        '<?= esc(addslashes($p->name)) ?>',
-                                        '<?= $p->price ?>',
-                                        '<?= $p->quantity ?>'
-                                    )"
-                                        class="bg-[#8A8E75] hover:bg-[#BEC5A4] mt-3 p-2 rounded-lg w-full text-white">
-                                        Add to Cart
-                                    </button>
+                                    <?php if ($isLoggedIn): ?>
+                                        <button
+                                            onclick="openCartModal(
+                                            '<?= $p->id ?>',
+                                            '<?= esc(addslashes($p->name)) ?>',
+                                            '<?= $p->price ?>',
+                                            '<?= $p->quantity ?>'
+                                        )"
+                                            class="bg-[#8A8E75] hover:bg-[#BEC5A4] mt-3 p-2 rounded-lg w-full text-white">
+                                            Add to Cart
+                                        </button>
+                                    <?php else: ?>
+                                        <a href="/loginPage"
+                                            class="bg-[#BEC5A4] hover:bg-[#8A8E75] mt-3 p-2 rounded-lg w-full font-semibold text-white text-center">
+                                            Sign in to Add
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -119,104 +141,14 @@ foreach ($cart as $c) {
             <!-- CTA FULL WIDTH (RESTORED) -->
             <section class="bg-white/90 backdrop-blur-sm py-32 w-full text-[#68604D] text-center">
                 <?= view('components/cta', [
-                    'heading' => 'Discover More Japanese Folktales',
-                    'sub' => 'Explore a curated selection of mystical and supernatural stories that capture the imagination.',
+                    'heading' => 'Ready to Go Green?',
+                    'sub' => 'Start your sustainable journey with our eco-friendly coconut coir products.',
                     'primary' => [
-                        'label' => 'Shop Now',
+                        'label' => 'Continue Shopping',
                         'href'  => '/shop'
                     ]
                 ]) ?>
             </section>
-
-            <!-- USER REQUEST FORM (RESTORED) -->
-            <div class="bg-white shadow-md mx-auto mt-16 mb-16 p-8 border border-[#D5C7AD] rounded-xl max-w-3xl">
-                <h3 class="mb-4 font-bold text-[#8A8E75] text-2xl header-title">Have a Product Request?</h3>
-                <p class="mb-4 text-[#68604D]">If there's a coconut coir product you'd like us to add, you can submit your request below.</p>
-
-                <?php if (session()->getFlashdata('success')): ?>
-                    <p class="bg-green-100 mb-4 p-3 border border-green-300 rounded-lg text-green-700">
-                        <?= session()->getFlashdata('success') ?>
-                    </p>
-                <?php endif; ?>
-
-                <?php if (session()->getFlashdata('error')): ?>
-                    <p class="bg-red-100 mb-4 p-3 border border-red-300 rounded-lg text-red-700">
-                        <?= session()->getFlashdata('error') ?>
-                    </p>
-                <?php endif; ?>
-
-                <form action="/submitRequest" method="post">
-                    <?= csrf_field() ?>
-
-                    <input type="hidden" name="requester_name"
-                        value="<?= esc($session->get('user')['profile']['display_name'] ?? ($session->get('user')['first_name'] . ' ' . $session->get('user')['last_name'])) ?>">
-
-                    <textarea name="requested_data" placeholder="Enter the product or item you want added..."
-                        class="mb-4 p-3 border border-[#8A8E75] rounded-lg w-full"
-                        rows="3" required></textarea>
-
-                    <textarea name="message" placeholder="Optional message..."
-                        class="mb-4 p-3 border border-[#8A8E75] rounded-lg w-full"
-                        rows="3"></textarea>
-
-                    <button type="submit"
-                        class="bg-[#8A8E75] hover:bg-[#BEC5A4] px-6 py-3 rounded-lg font-semibold text-white">
-                        Submit Request
-                    </button>
-                </form>
-
-            </div>
-
-            <!-- USER RATING -->
-            <div class="bg-white shadow-md mx-auto mb-16 p-8 border border-[#D5C7AD] rounded-xl max-w-3xl">
-                <h3 class="mb-4 font-bold text-[#8A8E75] text-2xl header-title">Rate Your Experience</h3>
-                <p class="mb-4 text-gray-700">Help us improve by giving a quick rating and optional comment.</p>
-
-                <?php if (session()->getFlashdata('rating_success')): ?>
-                    <p class="bg-green-100 mb-4 p-3 border border-green-300 rounded-lg text-green-700">
-                        <?= session()->getFlashdata('rating_success') ?>
-                    </p>
-                <?php endif; ?>
-
-                <?php if (session()->getFlashdata('rating_errors')): ?>
-                    <div class="bg-red-100 mb-6 p-4 rounded-lg text-red-700">
-                        <ul class="pl-5 list-disc">
-                            <?php foreach (session()->getFlashdata('rating_errors') as $error): ?>
-                                <li><?= esc($error) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <form action="/ratings" method="post" class="space-y-6">
-                    <?= csrf_field() ?>
-
-                    <?php
-                    $ratingOld = session()->getFlashdata('rating_old') ?? [];
-                    $currentRating = $ratingOld['rating'] ?? ($existingRating->rating ?? 0);
-                    ?>
-
-                    <div>
-                        <label class="block mb-2 font-semibold text-[#68604D] text-sm">Rating</label>
-                        <select name="rating" class="px-4 py-3 border border-gray-300 focus:border-[#8A8E75] rounded-xl focus:ring-[#D5C7AD]/60 focus:ring-4 w-full" required>
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <option value="<?= $i ?>" <?= $currentRating == $i ? 'selected' : '' ?>><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block mb-2 font-semibold text-[#68604D] text-sm">Comment (optional)</label>
-                        <textarea name="comment" rows="4"
-                            class="px-4 py-3 border border-gray-300 focus:border-[#8A8E75] rounded-xl focus:ring-[#D5C7AD]/60 focus:ring-4 w-full"><?= esc($ratingOld['comment'] ?? ($existingRating->comment ?? '')) ?></textarea>
-                    </div>
-
-                    <button type="submit"
-                        class="bg-[#8A8E75] hover:bg-[#BEC5A4] py-4 rounded-full w-full font-semibold text-white text-lg">
-                        Submit Rating
-                    </button>
-                </form>
-            </div>
 
             <!-- FOOTER -->
             <?= view('components/footer') ?>

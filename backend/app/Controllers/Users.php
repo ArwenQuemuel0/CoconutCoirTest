@@ -3,14 +3,62 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\RatingsModel;
 use App\Models\StocksModel;
 
 class Users extends BaseController
 {
     public function index()
     {
-        return view('user/landingPage');
+        $session = session();
+        $stocksModel = new StocksModel();
+
+        // Get featured products for storefront
+        $featuredProducts = $stocksModel->where('is_featured', 1)->findAll();
+
+        // Get trending products (by sales count)
+        $trendingProducts = $stocksModel->orderBy('sales_count', 'DESC')->limit(4)->findAll();
+
+        // Get best sellers
+        $bestSellers = $stocksModel->orderBy('sales_count', 'DESC')->limit(4)->findAll();
+
+        // Get some random products for variety
+        $allProducts = $stocksModel->findAll();
+        shuffle($allProducts);
+        $randomProducts = array_slice($allProducts, 0, 6);
+
+        $isLoggedIn = $session->has('user');
+
+        return view('user/landingPage', [
+            'featuredProducts' => $featuredProducts,
+            'trendingProducts' => $trendingProducts,
+            'bestSellers' => $bestSellers,
+            'randomProducts' => $randomProducts,
+            'isLoggedIn' => $isLoggedIn,
+        ]);
+    }
+
+    public function featured()
+    {
+        $session = session();
+        $stocksModel = new StocksModel();
+
+        // Get featured products
+        $featuredProducts = $stocksModel->where('is_featured', 1)->findAll();
+
+        // Get trending products (by sales count)
+        $trendingProducts = $stocksModel->orderBy('sales_count', 'DESC')->limit(6)->findAll();
+
+        // Get best sellers (same as trending for now)
+        $bestSellers = $stocksModel->orderBy('sales_count', 'DESC')->limit(6)->findAll();
+
+        $isLoggedIn = $session->has('user');
+
+        return view('user/featuredPage', [
+            'featuredProducts' => $featuredProducts,
+            'trendingProducts' => $trendingProducts,
+            'bestSellers' => $bestSellers,
+            'isLoggedIn' => $isLoggedIn,
+        ]);
     }
 
     public function login()
@@ -106,6 +154,29 @@ class Users extends BaseController
         return view('user/profilePage');
     }
 
+    public function orders()
+    {
+        $session = session();
+        if (!$session->has('user')) {
+            return redirect()->to('/loginPage');
+        }
+
+        $userId = $session->get('user')['id'];
+
+        $ordersModel = new \App\Models\OrdersModel();
+        $orderItemsModel = new \App\Models\OrderItemsModel();
+
+        $orders = $ordersModel->where('user_id', $userId)->orderBy('created_at', 'DESC')->findAll();
+
+        foreach ($orders as $order) {
+            $order->items = $orderItemsModel->where('order_id', $order->id)->findAll();
+        }
+
+        return view('user/ordersPage', [
+            'orders' => $orders,
+        ]);
+    }
+
     public function updateProfile()
     {
         $session = session();
@@ -175,63 +246,6 @@ class Users extends BaseController
         return redirect()->to('/profile');
     }
 
-    public function ratings()
-    {
-        $session = session();
-        if (!$session->has('user')) {
-            return redirect()->to('/loginPage');
-        }
-
-        $userId = $session->get('user')['id'];
-        $ratingsModel = new RatingsModel();
-        $rating = $ratingsModel->where('user_id', $userId)->first();
-
-        return view('user/ratingsPage', [
-            'old' => ['existing_rating' => $rating?->rating] ?? [],
-        ]);
-    }
-
-    public function submitRating()
-    {
-        $session = session();
-        if (!$session->has('user')) {
-            return redirect()->to('/loginPage');
-        }
-
-        $request = service('request');
-        $validation = \Config\Services::validation();
-
-        $validation->setRule('rating', 'Rating', 'required|integer|greater_than_equal_to[1]|less_than_equal_to[5]');
-        $validation->setRule('comment', 'Comment', 'permit_empty|max_length[500]');
-
-        $post = $request->getPost();
-
-        if (!$validation->run($post)) {
-            $session->setFlashdata('rating_errors', $validation->getErrors());
-            $session->setFlashdata('rating_old', $post);
-            return redirect()->back()->withInput();
-        }
-
-        $userId = $session->get('user')['id'];
-        $ratingsModel = new RatingsModel();
-        $existing = $ratingsModel->where('user_id', $userId)->first();
-
-        $data = [
-            'user_id' => $userId,
-            'rating' => (int) $post['rating'],
-            'comment' => $post['comment'] ?? null,
-        ];
-
-        if ($existing) {
-            $ratingsModel->update($existing->id, $data);
-        } else {
-            $ratingsModel->insert($data);
-        }
-
-        $session->setFlashdata('rating_success', 'Thank you for your rating!');
-        return redirect()->to('/shop');
-    }
-
     /**
      * PLACE ORDER — deduct stock + clear cart
      */
@@ -252,21 +266,60 @@ class Users extends BaseController
             return redirect()->to('/cart')->with('error', 'Your cart is empty.');
         }
 
+        $request = service('request');
+        $validation = \Config\Services::validation();
+        $validation->setRule('payment_method', 'Payment method', 'required|in_list[cash,card,gcash,paymaya]');
+        $validation->setRule('delivery_method', 'Delivery method', 'required|in_list[pickup,delivery]');
+
+        if (!$validation->withRequest($request)->run($request->getPost())) {
+            $session->setFlashdata('checkout_errors', $validation->getErrors());
+            return redirect()->back()->withInput();
+        }
+
+        $payments = $request->getPost('payment_method');
+        $delivery = $request->getPost('delivery_method');
+
         $stocksModel = new StocksModel();
+        $ordersModel = new \App\Models\OrdersModel();
+        $orderItemsModel = new \App\Models\OrderItemsModel();
 
-        // 🔥 Deduct stock for each product purchased
+        $totalAmount = 0;
         foreach ($cart as $item) {
+            $totalAmount += $item['price'] * $item['quantity'];
+        }
 
+        $orderId = $ordersModel->insert([
+            'user_id' => $userId,
+            'status' => 'completed',
+            'payment_method' => $payments,
+            'delivery_method' => $delivery,
+            'total_amount' => $totalAmount,
+        ]);
+
+        foreach ($cart as $item) {
             $product = $stocksModel->find($item['id']);
 
-            if ($product) {
-                $newQuantity = max(0, $product->quantity - $item['quantity']);
-
-                // update stock
-                $stocksModel->update($item['id'], [
-                    'quantity' => $newQuantity
-                ]);
+            if (!$product) {
+                continue;
             }
+
+            $quantity = min($item['quantity'], $product->quantity);
+            $subtotal = $item['price'] * $quantity;
+
+            $orderItemsModel->insert([
+                'order_id' => $orderId,
+                'stock_id' => $item['id'],
+                'seller_id' => $product->seller_id ?? null,
+                'quantity' => $quantity,
+                'unit_price' => $item['price'],
+                'subtotal' => $subtotal,
+            ]);
+
+            $newQuantity = max(0, $product->quantity - $quantity);
+            $stocksModel->update($item['id'], [
+                'quantity' => $newQuantity,
+                'sales_count' => ($product->sales_count ?? 0) + $quantity,
+            ]);
         }
 
         // 🔥 Clear only THIS user's cart

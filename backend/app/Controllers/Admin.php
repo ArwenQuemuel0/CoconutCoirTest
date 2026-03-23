@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UsersModel;
 use App\Models\StocksModel;
-use App\Models\RequestsModel;
 use CodeIgniter\Exceptions\ForbiddenException;
 
 class Admin extends BaseController
@@ -66,22 +65,6 @@ class Admin extends BaseController
         ]);
     }
 
-    public function requestPage()
-    {
-        $this->checkAdminAccess();
-
-        $session   = session();
-        $firstName = $session->get('user')['first_name'] ?? 'Admin';
-
-        $requestsModel = new RequestsModel();
-        $requests = $requestsModel->orderBy('id', 'ASC')->findAll();
-
-        return view('admin/requestPage', [
-            'adminFirstName' => $firstName,
-            'requests' => $requests
-        ]);
-    }
-
     public function accountsPage()
     {
         $this->checkAdminAccess();
@@ -123,17 +106,5 @@ class Admin extends BaseController
         $usersModel->update($id, $data);
 
         return redirect()->to('/admin/accountsPage')->with('message', 'User updated.');
-    }
-
-    public function updateRequestStatus($id)
-    {
-        $this->checkAdminAccess();
-
-        $requestsModel = new RequestsModel();
-        $newStatus = $this->request->getPost('status');
-
-        $requestsModel->update($id, ['status' => $newStatus]);
-
-        return redirect()->to('/admin/requestPage')->with('message', 'Status updated successfully.');
     }
 }

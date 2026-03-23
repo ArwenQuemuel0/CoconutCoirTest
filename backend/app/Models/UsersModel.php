@@ -19,6 +19,8 @@ class UsersModel extends Model
         'email',
         'password_hash',
         'type',
+        'address',
+        'mobile',
         'created_at',
         'updated_at',
         'deleted_at'

@@ -16,8 +16,17 @@ $routes->post('/logout', 'Auth::logout');
 
 // Shop Page
 $routes->get('/shop', 'Stock::shop');
+$routes->get('/featured', 'Users::featured');
 $routes->get('/checkout', 'Users::checkout');
-$routes->post('/submitRequest', 'Request::submit');
+
+// ORDERS
+$routes->get('/orders', 'Users::orders');
+
+// SELLER
+$routes->get('/seller/dashboard', 'Seller::dashboard');
+$routes->get('/seller/inventory', 'Seller::inventory');
+$routes->post('/seller/inventory/create', 'Seller::createProduct');
+$routes->get('/seller/reports', 'Seller::reports');
 
 // CART
 $routes->get('/cart', 'Users::cart');
@@ -29,10 +38,6 @@ $routes->get('/cart/remove/(:num)', 'Cart::remove/$1');
 $routes->get('/profile', 'Users::profile');
 $routes->post('/profile', 'Users::updateProfile');
 
-// RATINGS
-$routes->get('/ratings', 'Users::ratings');
-$routes->post('/ratings', 'Users::submitRating');
-
 // CHECKOUT
 $routes->post('/checkout/placeOrder', 'Users::placeOrder');
 
@@ -41,11 +46,7 @@ $routes->post('/checkout/placeOrder', 'Users::placeOrder');
 // -----------------------
 $routes->get('/admin/adminDashboard', 'Admin::showDashboard');
 $routes->get('/admin/stockPage', 'Admin::stockPage');
-$routes->get('/admin/requestPage', 'Admin::requestPage');
 $routes->get('/admin/accountsPage', 'Admin::accountsPage');
-
-// ⭐ Request status update
-$routes->post('/admin/requests/updateStatus/(:num)', 'Admin::updateRequestStatus/$1');
 
 // ⭐Accounts Management
 $routes->post('/admin/accounts/create', 'UserCRUDtest\UserCreate::createAccount');

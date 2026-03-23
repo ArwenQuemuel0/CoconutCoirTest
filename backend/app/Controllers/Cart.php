@@ -10,12 +10,20 @@ class Cart extends BaseController
     private function getCartKey()
     {
         $session = session();
-        return "cart_" . $session->get('user')['id'];
+        $user = $session->get('user');
+        return $user ? "cart_" . $user['id'] : "guest_cart";
     }
 
     public function add()
     {
         $session = session();
+
+        // Require login for cart operations
+        if (!$session->has('user')) {
+            $session->setFlashdata('error', 'Please log in before adding items to your cart.');
+            return redirect()->to('/loginPage');
+        }
+
         $stocks = new StocksModel();
 
         $cartKey = $this->getCartKey();
